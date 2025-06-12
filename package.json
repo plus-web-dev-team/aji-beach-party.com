@@ -4,11 +4,13 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
-		"dev": "browser-sync start --config bs-config.cjs"
+		"dev": "bun run lint:html & browser-sync start --config bs-config.cjs",
+		"lint:html": "markuplint *.html"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",
-		"browser-sync": "^3.0.4"
+		"browser-sync": "^3.0.4",
+		"markuplint": "^4.0.0"
 	},
 	"peerDependencies": {
 		"typescript": "^5"
