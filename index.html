@@ -72,6 +72,12 @@
         h1 {
             display: none;
         }
+
+        #responsive-map-img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
     </style>
 
 </head>
@@ -120,7 +126,7 @@
         <section class="footer">
             <div class="container">
                 <div class="footer_head">
-                    <img src="images/footer_head_01.png" usemap="#ImageMap" alt="" width="800" height="600"
+                    <img src="images/footer_head_01.png" usemap="#ImageMap" alt="" width="2658" height="577"
                         id="responsive-map-img" />
                     <map name="ImageMap">
                         <area shape="rect" data-original-coords="153,474,452,563" coords="153,474,452,563" href="#"
@@ -146,17 +152,22 @@
         </section>
     </footer>
     <script>
+        // 画像の読み込みを遅延
         document.querySelectorAll('img').forEach(img => img.setAttribute('loading', 'lazy'));
+
+        // マップのリンクをリサイズ
         function resizeMapAreas() {
             const img = document.getElementById('responsive-map-img');
             if (!img) return;
+
             const areas = document.querySelectorAll('map[name="ImageMap"] area');
-            const originalWidth = 800;
-            const originalHeight = 600;
-            const currentWidth = img.offsetWidth;
-            const currentHeight = img.offsetHeight;
+            const originalWidth = 2658;   // 実際の画像幅
+            const originalHeight = 577;    // 実際の画像高さ
+            const currentWidth = img.clientWidth;
+            const currentHeight = img.clientHeight;
             const xRatio = currentWidth / originalWidth;
             const yRatio = currentHeight / originalHeight;
+
             areas.forEach(area => {
                 const originalCoords = area.getAttribute('data-original-coords').split(',').map(Number);
                 const scaledCoords = originalCoords.map((coord, i) =>
@@ -165,8 +176,33 @@
                 area.coords = scaledCoords.join(',');
             });
         }
+
+        // 座標変換（800×600 → 2658×577）
+        function convertCoordinates() {
+            const xScale = 2658 / 800;
+            const yScale = 577 / 600;
+
+            const areas = document.querySelectorAll('map[name="ImageMap"] area');
+            areas.forEach(area => {
+                const oldCoords = area.getAttribute('coords').split(',').map(Number);
+                const newCoords = [
+                    Math.round(oldCoords[0] * xScale),
+                    Math.round(oldCoords[1] * yScale),
+                    Math.round(oldCoords[2] * xScale),
+                    Math.round(oldCoords[3] * yScale)
+                ];
+                area.setAttribute('data-original-coords', newCoords.join(','));
+                area.setAttribute('coords', newCoords.join(','));
+            });
+        }
+
+        // 実行順序
+        document.addEventListener('DOMContentLoaded', function () {
+            convertCoordinates();  // まず座標変換
+            resizeMapAreas();      // その後リサイズ処理
+        });
+
         window.addEventListener('resize', resizeMapAreas);
-        window.addEventListener('DOMContentLoaded', resizeMapAreas);
     </script>
 </body>
 
