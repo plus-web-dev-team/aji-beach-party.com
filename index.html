@@ -120,7 +120,16 @@
         <section class="footer">
             <div class="container">
                 <div class="footer_head">
-                    <img src="images/footer_head_01.png" alt="" width="800" height="600">
+                    <img src="images/footer_head_01.png" usemap="#ImageMap" alt="" width="800" height="600"
+                        id="responsive-map-img" />
+                    <map name="ImageMap">
+                        <area shape="rect" data-original-coords="153,474,452,563" coords="153,474,452,563" href="#"
+                            alt="左のリンク" />
+                        <area shape="rect" data-original-coords="528,473,827,562" coords="528,473,827,562" href="#"
+                            alt="中央のリンク" />
+                        <area shape="rect" data-original-coords="887,474,1186,562" coords="887,474,1186,562" href="#"
+                            alt="右のリンク" />
+                    </map>
                     <img src="images/footer_head_02.png" alt="" width="800" height="600">
                     <img src="images/footer_head_03.png" alt="" width="800" height="600">
                     <img src="images/footer_head_04.png" alt="" width="800" height="600">
@@ -138,6 +147,26 @@
     </footer>
     <script>
         document.querySelectorAll('img').forEach(img => img.setAttribute('loading', 'lazy'));
+        function resizeMapAreas() {
+            const img = document.getElementById('responsive-map-img');
+            if (!img) return;
+            const areas = document.querySelectorAll('map[name="ImageMap"] area');
+            const originalWidth = 800;
+            const originalHeight = 600;
+            const currentWidth = img.offsetWidth;
+            const currentHeight = img.offsetHeight;
+            const xRatio = currentWidth / originalWidth;
+            const yRatio = currentHeight / originalHeight;
+            areas.forEach(area => {
+                const originalCoords = area.getAttribute('data-original-coords').split(',').map(Number);
+                const scaledCoords = originalCoords.map((coord, i) =>
+                    i % 2 === 0 ? Math.round(coord * xRatio) : Math.round(coord * yRatio)
+                );
+                area.coords = scaledCoords.join(',');
+            });
+        }
+        window.addEventListener('resize', resizeMapAreas);
+        window.addEventListener('DOMContentLoaded', resizeMapAreas);
     </script>
 </body>
 
