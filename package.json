@@ -1,0 +1,16 @@
+{
+	"name": "aji-beach-party.com",
+	"module": "index.ts",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "browser-sync start --config bs-config.cjs"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"browser-sync": "^3.0.4"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	}
+}

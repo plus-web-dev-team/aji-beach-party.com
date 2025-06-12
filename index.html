@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あじがさわBeach Party 2025</title>
+    <style>
+        img {
+            display: block;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 1340px;
+            margin: 0 auto;
+        }
+
+        section.main {
+            width: 100%;
+            height: auto;
+            background-image: url(images/main_background.webp);
+            background-size: cover;
+            background-position: center;
+            padding: 3rem 0 3rem 0;
+
+            & img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        section.footer {
+            width: 100%;
+            height: auto;
+            background-image: url(images/footer_background.webp);
+            background-size: cover;
+            background-position: center;
+            padding: 3rem 0 3rem 0;
+
+            & img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .flex_item {
+            width: calc((100% - 60px) / 3);
+            background: #FFF;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+
+        ul {
+            list-style: disc;
+            padding: 1em;
+        }
+    </style>
+
+</head>
+
+<body>
+    <main>
+        <section class="main">
+            <div class="container">
+                <img src="images/main_01.png" alt="" width="800" height="600">
+                <img src="images/main_02.png" alt="" width="800" height="600">
+                <img src="images/main_03.png" alt="" width="800" height="600">
+                <img src="images/main_04.png" alt="" width="800" height="600">
+                <img src="images/main_05.png" alt="" width="800" height="600">
+                <!-- 店舗 -->
+                <div class="flex">
+                    <div class="flex_item">
+                        <h2>尾崎酒造</h2>
+                        <ul>
+                            <li>メニュー</li>
+                            <li>メニュー</li>
+                            <li>メニュー</li>
+                        </ul>
+                    </div>
+                    <div class="flex_item">
+                        <h2>尾崎酒造</h2>
+                        <ul>
+                            <li>メニュー</li>
+                            <li>メニュー</li>
+                            <li>メニュー</li>
+                        </ul>
+                    </div>
+                    <div class="flex_item">
+                        <h2>尾崎酒造</h2>
+                        <ul>
+                            <li>メニュー</li>
+                            <li>メニュー</li>
+                            <li>メニュー</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <section class="footer">
+            <div class="container">
+                <div class="footer_head">
+                    <img src="images/footer_head_01.png" alt="" width="800" height="600">
+                    <img src="images/footer_head_02.png" alt="" width="800" height="600">
+                    <img src="images/footer_head_03.png" alt="" width="800" height="600">
+                    <img src="images/footer_head_04.png" alt="" width="800" height="600">
+                    <img src="images/footer_head_05.png" alt="" width="800" height="600">
+                </div>
+                <div class="footer_body">
+                    <img src="images/footer_body_01.png" alt="" width="800" height="600">
+                    <img src="images/footer_body_02.png" alt="" width="800" height="600">
+                    <img src="images/footer_body_03.png" alt="" width="800" height="600">
+                    <img src="images/footer_body_04.png" alt="" width="800" height="600">
+                    <img src="images/footer_body_05.png" alt="" width="800" height="600">
+                </div>
+            </div>
+        </section>
+    </footer>
+    <script>
+        document.querySelectorAll('img').forEach(img => img.setAttribute('loading', 'lazy'));
+    </script>
+</body>
+
+</html>
