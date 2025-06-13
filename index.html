@@ -78,6 +78,22 @@
             height: auto;
             display: block;
         }
+
+        .area_hover {
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .map-overlay {
+            position: absolute;
+            background-color: rgba(255, 0, 0, 0.2);
+            pointer-events: none;
+            transition: background-color 0.3s;
+        }
+
+        .map-overlay.active {
+            background-color: rgba(255, 0, 0, 0.4);
+        }
     </style>
 
 </head>
@@ -126,20 +142,26 @@
         <section class="footer">
             <div class="container">
                 <div class="footer_head">
-                    <img src="images/footer_head_01.png" usemap="#ImageMap" alt="" width="2658" height="577"
-                        id="responsive-map-img" />
-                    <map name="ImageMap">
-                        <area shape="rect" data-original-coords="153,474,452,563" coords="153,474,452,563" href="#"
-                            alt="左のリンク" />
-                        <area shape="rect" data-original-coords="528,473,827,562" coords="528,473,827,562" href="#"
-                            alt="中央のリンク" />
-                        <area shape="rect" data-original-coords="887,474,1186,562" coords="887,474,1186,562" href="#"
-                            alt="右のリンク" />
+                    <img src="images/footer_head_01.png" width="2658" height="577" usemap="#footer_head_01_Map"
+                        alt="ご来場について">
+                    <map name="footer_head_01_Map">
+                        <area shape="rect" alt="JR東日本サイトへ" coords="886,472,1184,562" href="https://www.jreast.co.jp/"
+                            target="_blank">
+                        <area shape="rect" alt="弘南バスサイトへ" coords="528,472,827,562" href="https://konanbus.com/"
+                            target="_blank">
+                        <area shape="rect" alt="あじバスサイトへ" coords="152,472,452,562"
+                            href="https://www.town.ajigasawa.lg.jp/" target="_blank">
                     </map>
-                    <img src="images/footer_head_02.png" alt="" width="800" height="600">
-                    <img src="images/footer_head_03.png" alt="" width="800" height="600">
+                    <img src="images/footer_head_02.png" alt="Aji Beach Party main event image" width="800"
+                        height="600">
+                    <img src="images/footer_head_03.png" width="2659" height="339" alt="シャトルバス時刻表はこちら"
+                        usemap="#footer_head_03_Map">
+                    <map name="footer_head_03_Map">
+                        <area shape="rect" alt="シャトルバス時刻表を開く" coords="158,9,694,223" href="#">
+                    </map>
                     <img src="images/footer_head_04.png" alt="" width="800" height="600">
                     <img src="images/footer_head_05.png" alt="" width="800" height="600">
+                    <img src="images/footer_head_06.png" alt="" width="800" height="600">
                 </div>
                 <div class="footer_body">
                     <img src="images/footer_body_01.png" alt="" width="800" height="600">
@@ -151,58 +173,17 @@
             </div>
         </section>
     </footer>
+    <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js" defer></script>
     <script>
-        // 画像の読み込みを遅延
-        document.querySelectorAll('img').forEach(img => img.setAttribute('loading', 'lazy'));
+        document.addEventListener('DOMContentLoaded', () => {
+            // すべての usemap 対象画像に imageMapResize を実行
+            if (typeof imageMapResize === 'function') {
+                imageMapResize();
+            }
 
-        // マップのリンクをリサイズ
-        function resizeMapAreas() {
-            const img = document.getElementById('responsive-map-img');
-            if (!img) return;
-
-            const areas = document.querySelectorAll('map[name="ImageMap"] area');
-            const originalWidth = 2658;   // 実際の画像幅
-            const originalHeight = 577;    // 実際の画像高さ
-            const currentWidth = img.clientWidth;
-            const currentHeight = img.clientHeight;
-            const xRatio = currentWidth / originalWidth;
-            const yRatio = currentHeight / originalHeight;
-
-            areas.forEach(area => {
-                const originalCoords = area.getAttribute('data-original-coords').split(',').map(Number);
-                const scaledCoords = originalCoords.map((coord, i) =>
-                    i % 2 === 0 ? Math.round(coord * xRatio) : Math.round(coord * yRatio)
-                );
-                area.coords = scaledCoords.join(',');
-            });
-        }
-
-        // 座標変換（800×600 → 2658×577）
-        function convertCoordinates() {
-            const xScale = 2658 / 800;
-            const yScale = 577 / 600;
-
-            const areas = document.querySelectorAll('map[name="ImageMap"] area');
-            areas.forEach(area => {
-                const oldCoords = area.getAttribute('coords').split(',').map(Number);
-                const newCoords = [
-                    Math.round(oldCoords[0] * xScale),
-                    Math.round(oldCoords[1] * yScale),
-                    Math.round(oldCoords[2] * xScale),
-                    Math.round(oldCoords[3] * yScale)
-                ];
-                area.setAttribute('data-original-coords', newCoords.join(','));
-                area.setAttribute('coords', newCoords.join(','));
-            });
-        }
-
-        // 実行順序
-        document.addEventListener('DOMContentLoaded', function () {
-            convertCoordinates();  // まず座標変換
-            resizeMapAreas();      // その後リサイズ処理
+            // 遅延読み込みをすべての画像に適用
+            document.querySelectorAll('img').forEach(img => img.setAttribute('loading', 'lazy'));
         });
-
-        window.addEventListener('resize', resizeMapAreas);
     </script>
 </body>
 
